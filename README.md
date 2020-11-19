@@ -12,7 +12,7 @@
 
 # Manually triggered workflow
 
-name: Production Deploy
+name: Deploy Workflow
 
 on:
   workflow_dispatch:
@@ -90,7 +90,7 @@ jobs:
         env:
           WPE_INSTALL_PRODUCTION: ${{ secrets.WPE_INSTALL_PRODUCTION }}
 
-      - name: Deploy - Git Push # unlink .gitignore; ln -s .gitignores/__production .gitignore
+      - name: Deploy - Git Push # unlink .gitignore; ln -s .gitignores/__production .gitignore (Place on line 84)
         run: |
           git checkout -b ${GITHUB_REF##*/}-${{ github.run_id }}-${{ github.run_number }}
           
