@@ -115,9 +115,9 @@ jobs:
 | PROJECT_TYPE | Either `theme` or `plugin`. Corresponds to file path. Workflow will add an `s`. See line ##. |
 | PROJECT_NAME | Name of the theme/plugin folder. Corresponds to file path. See line ##. |
 | WPE_INSTALL_PRODUCTION | Name of your WPE Production Server. Corresponds to [this](https://wpengine.com/support/git/#Git_Push_Deploy#Add_Git_Remotes). See line ## |
-| WPE_INSTALL_Staging | Name of your WPE Production Server. Corresponds to [this](https://wpengine.com/support/git/#Git_Push_Deploy#Add_Git_Remotes). See line ##. NOTE: You'll need to make a separate workflow for staging/production deploys, mostly so production can be triggered manually and staging can be trigger by pushing to the branch. Have to change the variable referenced on line ##. | 
-| WPE_SSH_KNOWN_HOSTS | The git.wpengine.com fingerprint. For adding to known hosts. NOTE: Will need to be updated if and when WP Engine changes their fingerprint. See line ##. Value provided below. |
-| WPE_SSH_KEY_PRIVATE | The SSH key you've generated on your machine and added to WPE. [Read this for further instructions](https://wpengine.com/support/git/#Git_Push_Deploy#Generate_SSH_Key). Should start with `-----BEGIN RSA PRIVATE KEY-----` and end with `-----END RSA PRIVATE KEY-----`. See line ##
+| WPE_INSTALL_Staging | Name of your WPE Production Server. Corresponds to [this](https://wpengine.com/support/git/#Git_Push_Deploy#Add_Git_Remotes). See line ##. NOTE: You'll need to make a separate workflow for staging/production deploys, mostly so production can be triggered manually and staging can be triggered by pushing to the branch. Have to change the variable referenced on line ##. | 
+| WPE_SSH_KNOWN_HOSTS | The git.wpengine.com fingerprint. For adding to known hosts. NOTE: Will need to be updated if and when WP Engine changes their fingerprint. Value provided below. See line ##. |
+| WPE_SSH_KEY_PRIVATE | The SSH key you've generated on your machine and added to WPE. [Read this for further instructions](https://wpengine.com/support/git/#Git_Push_Deploy#Generate_SSH_Key). Should start with `-----BEGIN RSA PRIVATE KEY-----` and end with `-----END RSA PRIVATE KEY-----`. See line ##.
 
 
 
