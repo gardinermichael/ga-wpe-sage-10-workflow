@@ -133,7 +133,7 @@ Signaled by `Build - ` in front of the step name. This process installs and buil
 
 ### Deploying 
 
-Signaled by `Deploy - ` in front of the step name. This process configures the relevant SSH keys, configures git by adding the remote, before finally switching out the .gitignore by delinking and relinking when the time comes (See line ##).
+Signaled by `Deploy - ` in front of the step name. This process configures the relevant SSH keys, adds the remote to git, switches out the .gitignore by delinking and relinking, and finally pushes to WPE.
 
 ### .gitignore Section
 
