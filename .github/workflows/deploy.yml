@@ -1,6 +1,6 @@
 # Manually triggered workflow
 
-name: Production Deploy
+name: Deploy workflow
 
 on:
   workflow_dispatch:
