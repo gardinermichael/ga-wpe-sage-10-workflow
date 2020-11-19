@@ -6,7 +6,7 @@
   * [Sidas Snieška's CircleCI + WPEngine + SAGE Pipeline](https://gist.github.com/Prophe1/5c1f7ce79a27a5e0eb9d43512a573111)
   * [Ryan Hoover's CircleCI 2.1 Continuous Integration with WP Engine](https://gist.github.com/ryanshoover/ce4bb081b95168840b8c51b2a033c500)
 
-#### .yml:
+## .yml:
 
 ```yml
 
@@ -108,17 +108,27 @@ jobs:
 
 ```
 
-#### Variables You Need To Set in Settings > Secrets:
+## Variables You Need To Set in Settings > Secrets:
 
 | Variable | Value |
 | ------------- | ------------- |
 | PROJECT_TYPE | Either `theme` or `plugin`. Corresponds to file path. Workflow will add an `s`. See line ##. |
 | PROJECT_NAME | Name of the theme/plugin folder. Corresponds to file path. See line ##. |
-| WPE_INSTALL_PRODUCTION | Name of your WPE Production Server. Corresponds to [this](https://wpengine.com/support/git/#Git_Push_Deploy#Add_Git_Remotes). See line ## |
-| WPE_INSTALL_Staging | Name of your WPE Production Server. Corresponds to [this](https://wpengine.com/support/git/#Git_Push_Deploy#Add_Git_Remotes). See line ##. NOTE: You'll need to make a separate workflow for staging/production deploys, mostly so production can be triggered manually and staging can be triggered by pushing to the branch. Have to change the variable referenced on line ##. | 
+| WPE_INSTALL_PRODUCTION | Name of your WPE Production Server. Corresponds to [this](https://wpengine.com/support/git/#Git_Push_Deploy#Add_Git_Remotes). See line ##. |
+| WPE_INSTALL_Staging | Name of your WPE Production Server. Corresponds to [this](https://wpengine.com/support/git/#Git_Push_Deploy#Add_Git_Remotes). See line ##. NOTE: You'll need to make a separate workflow for staging/production deploys, mostly so production can be triggered manually and staging can be triggered by pushing to the branch (Not yet shown here). Have to change the variable referenced on line ##. | 
 | WPE_SSH_KNOWN_HOSTS | The git.wpengine.com fingerprint. For adding to known hosts. NOTE: Will need to be updated if and when WP Engine changes their fingerprint. Value provided below. See line ##. |
 | WPE_SSH_KEY_PRIVATE | The SSH key you've generated on your machine and added to WPE. [Read this for further instructions](https://wpengine.com/support/git/#Git_Push_Deploy#Generate_SSH_Key). Should start with `-----BEGIN RSA PRIVATE KEY-----` and end with `-----END RSA PRIVATE KEY-----`. See line ##.
 
+## Explanation:
 
+This workflow assumes your repo lives at the theme or plugin folder level. It has three steps: Caching, Building and Deploying. It also switches out the .gitignore by linking and delinking when the time comes (See line ##).
 
-# Sage 10 Cache Solution for WP Engine
+### Caching 
+
+Signaled by `Cache - ` in front of the step name. The process finds the directory path for the cache for both yarn and composer, and then in the subsequent step, loads it if it exists. I do not believe the cache hit commands commented out are necessary, but left them there for posterity.
+
+### Building
+
+Signaled by `Build - ` in front of the step name. Installs and builds composer and yarn. Most importantly, moves all relevant files into a `wp-content/themes/project-name` or `wp-content/plugins/project-name` directory path to compensate for WPE pushing at the site folder level.
+
+# Sage 10 Blade Template Cache Solution for WP Engine
