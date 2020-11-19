@@ -1,4 +1,4 @@
-_First section explains the deployment workflow, while the second section is in regards to the Sage 10 Blade template cache issue_
+_First section explains the WPE deployment workflow, while the second section is in regards to the WPE Sage 10 Blade template cache issue._
 
 # Github Actions Workflow to Deploy Sage 10 on WP Engine
 
