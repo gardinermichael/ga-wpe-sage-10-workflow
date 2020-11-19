@@ -180,4 +180,4 @@ find /tmp/sage-cache/ -type d -exec chown -R www-data: {} \;
 find /tmp/sage-cache/ -type d -exec chmod -R 0775 {} \; 
 ```
 
-__NOTE:__ Last but not least, you may have to replicate the process on your local machine. Not sure if it's the messed up permissions on my computer or if it was updating to Big Sur that caused it, but I had to manually create the folder `sage-cache` folder at `/tmp/` and give it the appropriate permissions as well.
+__NOTE:__ Last but not least, you may have to replicate the process on your local machine. Not sure if it's the messed up permissions on my computer or if it was updating to Big Sur that caused it, but I had to manually create the `sage-cache` folder at `/tmp/` and give it the appropriate permissions as well.
