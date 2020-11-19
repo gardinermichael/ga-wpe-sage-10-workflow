@@ -1,0 +1,49 @@
+/node_modules
+/vendor
+/dist
+npm-debug.log
+yarn-error.log
+
+# Mac-specific
+.DS_Store
+
+# Dev files
+*.codekit
+.svn
+.sass-cache
+
+# known large file types
+*.hqx
+*.exe
+*.dll
+*.deb
+*.dmg
+*.iso
+*.img
+*.msi
+*.msp
+*.msm
+*.mid
+*.midi
+*.kar
+*.mng
+*.asx
+*.asf
+*.wmv
+*.zip
+*.tar
+*.tgz
+*.gz
+*.mp4
+© 2020 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
