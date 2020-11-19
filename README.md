@@ -8,7 +8,7 @@ _First section explains the WPE deployment workflow, while the second section is
   * [Sidas Snieška's CircleCI + WPEngine + SAGE Pipeline](https://gist.github.com/Prophe1/5c1f7ce79a27a5e0eb9d43512a573111)
   * [Ryan Hoover's CircleCI 2.1 Continuous Integration with WP Engine](https://gist.github.com/ryanshoover/ce4bb081b95168840b8c51b2a033c500)
 
-## .yml:
+## [.yml](https://github.com/gardinermichael/ga-wpe-sage-10-workflow/blob/main/.github/workflows/deploy.yml):
 
 ```yml
 
