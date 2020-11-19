@@ -137,6 +137,6 @@ Signaled by `Deploy - ` in front of the step name. This process configures the r
 
 ### .gitignore Section
 
-You will have two .gitignores that live in a folder called `.gitignores`. The `__default` file corresponds to pushing from your local machine to Github, while the `__production` file corresponds to pushing from Github to WPE. When setting up your repo, add the gitignore with the following command at the repo root level: `ln -s .gitignores/__default .gitignore`. Note: I need to finish the last step still (delinking and relinking the `__production .gitignore`, so the workflow as it stands will add a bunch of unnecessary things to the WPE. Will fix soon. Please see this folder for the files.
+You will have two .gitignores that live in a folder called `.gitignores`. The `__default` file corresponds to pushing from your local machine to Github, while the `__production` file corresponds to pushing from Github to WPE. When setting up your repo, add the .gitignore with the following command at the repo root level: `ln -s .gitignores/__default .gitignore`. Note: I need to finish the last step still (delinking and relinking the `__production` .gitignore, so the workflow as it stands will add a bunch of unnecessary things to the WPE. Will fix soon. Please see this folder for the files.
 
 # Sage 10 Blade Template Cache Solution for WP Engine
