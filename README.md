@@ -152,7 +152,7 @@ See above section for explanation.
 
 ### The Problem
 
-So in Sage 9, the Blade template cache could be configured for WPE with the following: changing `'compiled' =>` to `'compiled' => '/tmp/sage-cache',` in `./config/view.php`. Relevant links:
+In Sage 9, the Blade template cache could be configured for WPE with the following: changing `'compiled' =>` to `'compiled' => '/tmp/sage-cache',` in `./config/view.php`. Relevant links:
 
   * [Sage 9 on WPEngine](https://discourse.roots.io/t/sage-9-on-wpengine/9090)
   * [Sage 9 and WPEngine Cache Fix](https://laneparton.com/sage-9-and-wpengine/)
