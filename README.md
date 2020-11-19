@@ -60,7 +60,6 @@ jobs:
       - name: Build - Install Yarn Dependecies
         run: |
           yarn --prefer-offline
-          yarn build
           yarn build:production
           
       - name: Build - Install Composer Dependencies
