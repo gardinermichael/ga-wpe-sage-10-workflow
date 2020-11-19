@@ -111,7 +111,7 @@ jobs:
 ## Variables You Need To Set in Settings > Secrets:
 
 | Variable | Value |
-| ------------- | ------------- |
+| ------------- | :------------- |
 | PROJECT_TYPE | Either `theme` or `plugin`. Corresponds to file path. Workflow will add an `s`. See line ##. |
 | PROJECT_NAME | Name of the theme/plugin folder. Corresponds to file path. See line ##. |
 | WPE_INSTALL_PRODUCTION | Name of your WPE Production Server. Corresponds to [this](https://wpengine.com/support/git/#Git_Push_Deploy#Add_Git_Remotes). See line ##. |
