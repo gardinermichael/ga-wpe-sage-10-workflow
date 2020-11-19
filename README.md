@@ -148,3 +148,31 @@ See above section for explanation.
 | WPE_SSH_KNOWN_HOSTS | `git.wpengine.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEApRVAUwjz49VKfuENfyv52Dvh3qx9nWW/3Gb7R9pwABXUNQqkipt3aB7w2W6jOaEGFmzSr/4qhstUv0lvbeZu/1uRU/b6WrqULu+9bAdt9ll09QULfMxAIFWDwDS1F6GEZT+Yau/wLUI2VTZppxSVRIPe20/mxgXk8/Q9ha5tCaz+dQZ9lHWwk9rbDF+7LSVomLGM3e9dwr6mS4p37Qkje2cFJBqQcQ+RqEOTOD/xiFU0DH8TWO4R5yibQ0KEZVACkwhaAZSl81F7YZrrLEfsFS/llgpV3YZHQGvFi0x/ELAUJMFE9umdy9EwFF7/lTpV8zOGdiLW+v8svweWJJJ00w==` |
 
 # Sage 10 Blade Template Cache Solution for WP Engine
+
+
+### The Problem
+
+So in Sage 9, the Blade template cache could be configured for WPE with the following: changing `'compiled' =>` to `'compiled' => '/tmp/sage-cache',` in `./config/view.php`. Relevant links:
+
+  * [Sage 9 on WPEngine](https://discourse.roots.io/t/sage-9-on-wpengine/9090)
+  * [Sage 9 and WPEngine Cache Fix](https://laneparton.com/sage-9-and-wpengine/)
+  * [Tips For Setting up Sage 9](https://hirecollin.com/2019/08/tips-for-setting-up-sage-9/)
+  
+This will not work for Sage 10 unfortunately. @jamesfacts realized that because Sage 10 has moved to utilizing Acorn for caching, for one reason or another, Sage no longer looks at the /tmp/ folder than we as WPE users can see in the SSH shell. Instead, it's pointing at a different /tmp/ folder that lives on the server root and is used by WPE proper. Only WPE support can see this folder.
+
+### The Solution
+
+You will need to contact WPE support and ask them to do the following:
+
+```
+Manually create the directory for it: 
+
+mkdir /tmp/sage-cache
+
+and then allow WP to write to it: 
+
+find /tmp/sage-cache/ -type d -exec chown -R www-data: {} \;
+find /tmp/sage-cache/ -type d -exec chmod -R 0775 {} \; 
+```
+
+__NOTE:__ Last but not least, you may have to replicate the process on your local machine. Not sure if it's the messed up permissions on my computer or if it was updating to Big Sur that caused it, but I had to manually create the folder `sage-cache` folder at `/tmp/` and give it the appropriate permissions as well.
