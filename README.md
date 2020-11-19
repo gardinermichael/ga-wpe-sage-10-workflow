@@ -127,7 +127,7 @@ This workflow assumes your repo lives at the theme or plugin folder level. It ha
 
 ### Caching 
 
-Signaled by `Cache - ` in front of the step name. This process finds the cache directory path for both yarn and composer, and then in the subsequent step, loads it if it exists. I do not believe the cache hit commands commented out are necessary, but left them there for posterity.
+Signaled by `Cache - ` in front of the step name. This process finds the cache directory path for both yarn and composer, and then in the subsequent step, loads it if it exists. I do not believe the cache hit commands commented out are necessary, but I left them there for posterity.
 
 ### Building
 
