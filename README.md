@@ -133,9 +133,9 @@ Signaled by `Build - ` in front of the step name. This process installs and buil
 
 ### Deploying 
 
-Signaled by `Deploy - ` in front of the step name. This process configures the relevant SSH keys, configures git by adding the remote, before finally switching out the .gitignore by linking and delinking when the time comes (See line ##).
+Signaled by `Deploy - ` in front of the step name. This process configures the relevant SSH keys, configures git by adding the remote, before finally switching out the .gitignore by delinking and relinking when the time comes (See line ##).
 
-#### .gitignore Section
+### .gitignore Section
 
 You will have two .gitignores that live in a folder called `.gitignores`. The `__default` file corresponds to pushing from your local machine to Github, while the `__production` file corresponds to pushing from Github to WPE. When setting up your repo, add the gitignore with the following command at the repo root level: `ln -s .gitignores/__default .gitignore`. Note: I need to finish the last step still (delinking and relinking the `__production .gitignore`, so the workflow as it stands will add a bunch of unnecessary things to the WPE. Will fix soon. Please see this folder for the files.
 
