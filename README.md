@@ -117,18 +117,22 @@ jobs:
 | WPE_INSTALL_PRODUCTION | Name of your WPE Production Server. Corresponds to [this](https://wpengine.com/support/git/#Git_Push_Deploy#Add_Git_Remotes). See line ##. |
 | WPE_INSTALL_Staging | Name of your WPE Production Server. Corresponds to [this](https://wpengine.com/support/git/#Git_Push_Deploy#Add_Git_Remotes). See line ##. NOTE: You'll need to make a separate workflow for staging/production deploys, mostly so production can be triggered manually and staging can be triggered by pushing to the branch (Not yet shown here). Have to change the variable referenced on line ##. | 
 | WPE_SSH_KNOWN_HOSTS | The git.wpengine.com fingerprint. For adding to known hosts. NOTE: Will need to be updated if and when WP Engine changes their fingerprint. Value provided below. See line ##. |
-| WPE_SSH_KEY_PRIVATE | The SSH key you've generated on your machine and added to WPE. [Read this for further instructions](https://wpengine.com/support/git/#Git_Push_Deploy#Generate_SSH_Key). Should start with `-----BEGIN RSA PRIVATE KEY-----` and end with `-----END RSA PRIVATE KEY-----`. See line ##.
+| WPE_SSH_KEY_PRIVATE | The Private SSH key you've generated on your machine and added to WPE. [Read this for further instructions](https://wpengine.com/support/git/#Git_Push_Deploy#Generate_SSH_Key). Should start with `-----BEGIN RSA PRIVATE KEY-----` and end with `-----END RSA PRIVATE KEY-----`. See line ##.
 
 ## Explanation:
 
-This workflow assumes your repo lives at the theme or plugin folder level. It has three steps: Caching, Building and Deploying. It also switches out the .gitignore by linking and delinking when the time comes (See line ##).
+This workflow assumes your repo lives at the theme or plugin folder level. It has three steps: Caching, Building and Deploying. NOTE: See .gitignore section below for when setting up your repo.
 
 ### Caching 
 
-Signaled by `Cache - ` in front of the step name. The process finds the directory path for the cache for both yarn and composer, and then in the subsequent step, loads it if it exists. I do not believe the cache hit commands commented out are necessary, but left them there for posterity.
+Signaled by `Cache - ` in front of the step name. This process finds the directory path for the cache for both yarn and composer, and then in the subsequent step, loads it if it exists. I do not believe the cache hit commands commented out are necessary, but left them there for posterity.
 
 ### Building
 
-Signaled by `Build - ` in front of the step name. Installs and builds composer and yarn. Most importantly, moves all relevant files into a `wp-content/themes/project-name` or `wp-content/plugins/project-name` directory path to compensate for WPE pushing at the site folder level.
+Signaled by `Build - ` in front of the step name. This process installs and builds composer and yarn packages/dependencies. Most importantly, moves all relevant files into a `wp-content/themes/project-name` or `wp-content/plugins/project-name` directory path to compensate for WPE pushing at the site folder level.
+
+### Deploying 
+
+Signaled by `Deploy - ` in front of the step name. This process configures the relevant SSH keys, configures git by adding the remote, before finally switching out the .gitignore by linking and delinking when the time comes (See line ##).
 
 # Sage 10 Blade Template Cache Solution for WP Engine
