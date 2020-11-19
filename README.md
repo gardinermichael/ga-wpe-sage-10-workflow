@@ -137,7 +137,9 @@ Signaled by `Build - ` in front of the step name. This process installs and buil
 
 Signaled by `Deploy - ` in front of the step name. This process configures the relevant SSH keys, adds the remote to git, switches out the .gitignore by delinking and relinking, and finally pushes to WPE.
 
-### .gitignore Section
+## Addendum
+
+### .gitignore
 
 You will have two .gitignores that live in a folder called `.gitignores`. The `__default` file corresponds to pushing from your local machine to Github, while the `__production` file corresponds to pushing from Github to WPE. When setting up your repo, add the default .gitignore with the following command at the repo root level: `ln -s .gitignores/__default .gitignore`. __NOTE:__ I need to finish the last step still (delinking and relinking the production .gitignore, so the workflow as it stands will add a bunch of unnecessary things to the WPE. Will fix soon. Please see [this folder](https://github.com/gardinermichael/ga-wpe-sage-10-workflow/tree/main/.gitignores) for the files.
 
