@@ -139,4 +139,12 @@ Signaled by `Deploy - ` in front of the step name. This process configures the r
 
 You will have two .gitignores that live in a folder called `.gitignores`. The `__default` file corresponds to pushing from your local machine to Github, while the `__production` file corresponds to pushing from Github to WPE. When setting up your repo, add the default .gitignore with the following command at the repo root level: `ln -s .gitignores/__default .gitignore`. __NOTE:__ I need to finish the last step still (delinking and relinking the production .gitignore, so the workflow as it stands will add a bunch of unnecessary things to the WPE. Will fix soon. Please see [this folder](https://github.com/gardinermichael/ga-wpe-sage-10-workflow/tree/main/.gitignores) for the files.
 
+### WPE SSH Fingerprint
+
+See above section for explanation.
+
+| Variable | Value |
+| ------------- | -------------|
+| WPE_SSH_KNOWN_HOSTS | `git.wpengine.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEApRVAUwjz49VKfuENfyv52Dvh3qx9nWW/3Gb7R9pwABXUNQqkipt3aB7w2W6jOaEGFmzSr/4qhstUv0lvbeZu/1uRU/b6WrqULu+9bAdt9ll09QULfMxAIFWDwDS1F6GEZT+Yau/wLUI2VTZppxSVRIPe20/mxgXk8/Q9ha5tCaz+dQZ9lHWwk9rbDF+7LSVomLGM3e9dwr6mS4p37Qkje2cFJBqQcQ+RqEOTOD/xiFU0DH8TWO4R5yibQ0KEZVACkwhaAZSl81F7YZrrLEfsFS/llgpV3YZHQGvFi0x/ELAUJMFE9umdy9EwFF7/lTpV8zOGdiLW+v8svweWJJJ00w==` |
+
 # Sage 10 Blade Template Cache Solution for WP Engine
