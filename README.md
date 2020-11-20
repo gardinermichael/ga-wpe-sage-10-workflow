@@ -164,7 +164,7 @@ In Sage 9, the Blade template cache could be configured for WPE with the followi
   * [Sage 9 and WPEngine Cache Fix](https://laneparton.com/sage-9-and-wpengine/)
   * [Tips For Setting up Sage 9](https://hirecollin.com/2019/08/tips-for-setting-up-sage-9/)
   
-This will not work out of the box for Sage 10 unfortunately. [@jamesfacts](https://github.com/jamesfacts) realized that because Sage 10 has moved to utilizing Acorn for caching, for one reason or another, Sage no longer looks at the /tmp/ folder than we as WPE users can see in the SSH shell. Instead, it's pointing at a different /tmp/ folder that lives on the server root and is used by WPE proper. Only WPE support can see this folder.
+This will not work out of the box for Sage 10 unfortunately.
 
 ### The Solution
 
