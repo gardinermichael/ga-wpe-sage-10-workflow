@@ -12,24 +12,29 @@ _First section explains the WPE deployment workflow, while the second section is
 
 ```yml
 
-# Manually triggered workflow
+# Manually triggered workflow except when pushed to Staging
 
-name: Deploy Workflow
+name: Production/Staging Deploy
 
 on:
+  push:
+    branches:
+      - staging   
+      - '!master'
+      - '!main' 
+        
   workflow_dispatch:
 
 jobs:
   Build-and-Deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
         with:
           fetch-depth: '0'
-          
-          
+
+
       - name: Cache - Get Yarn Cache Directory Path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -84,16 +89,24 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.WPE_SSH_KEY_PRIVATE }}
           SSH_KNOWN_HOSTS: ${{ secrets.WPE_SSH_KNOWN_HOSTS }}
 
-      - name: Deploy - Git Config
-        run: |
-           git remote add wpe git@git.wpengine.com:production/${WPE_INSTALL_PRODUCTION}.git
-           git config --global user.email "actions@github.com"
-           git config --global user.name "Github Action Deployment"
-           git fetch wpe
+      - name: Deploy - Git Config - Staging?
+        if: contains(github.ref, 'staging')
+        run: git remote add wpe git@git.wpengine.com:production/${WPE_INSTALL_STAGING}.git
+        env:
+          WPE_INSTALL_STAGING: ${{ secrets.WPE_INSTALL_STAGING }}
+
+      - name: Deploy - Git Config - Production?
+        if: contains(github.ref, 'master') || contains(github.ref, 'main')
+        run: git remote add wpe git@git.wpengine.com:production/${WPE_INSTALL_PRODUCTION}.git
         env:
           WPE_INSTALL_PRODUCTION: ${{ secrets.WPE_INSTALL_PRODUCTION }}
 
-      - name: Deploy - Git Push # unlink .gitignore; ln -s .gitignores/__production .gitignore (Place on line ##)
+      - name: Deploy - Git Config
+        run: |
+           git config --global user.email "actions@github.com"
+           git config --global user.name "Github Action Deployment"
+           git fetch wpe
+      - name: Deploy - Git Push # unlink .gitignore; ln -s .gitignores/__production .gitignore (Place on line 84)
         run: |
           git checkout -b ${GITHUB_REF##*/}-${{ github.run_id }}-${{ github.run_number }}
           
