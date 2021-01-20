@@ -129,7 +129,7 @@ jobs:
 | PROJECT_TYPE | Either `theme` or `plugin`. Corresponds to file path. Workflow will add an `s`. See line ##. |
 | PROJECT_NAME | Name of the theme/plugin folder. Corresponds to file path. See line ##. |
 | WPE_INSTALL_PRODUCTION | Name of your WPE Production Server. Corresponds to [this](https://wpengine.com/support/git/#Add_Git_Remotes). See line ##. |
-| WPE_INSTALL_STAGING | Name of your WPE Staging Server. Corresponds to [this](https://wpengine.com/support/git/#Add_Git_Remotes). See line ##. __NOTE:__ You'll need to make a separate workflow for staging/production deploys, mostly so production can be triggered manually and staging can be triggered by pushing to the branch (Not shown here yet). Have to change the variable referenced on line ##. | 
+| WPE_INSTALL_STAGING | Name of your WPE Staging Server. Corresponds to [this](https://wpengine.com/support/git/#Add_Git_Remotes). See line ##. | 
 | WPE_SSH_KNOWN_HOSTS | The git.wpengine.com fingerprint. For adding to known hosts. __NOTE:__ Will need to be updated if and when WP Engine changes their fingerprint. Value provided below. See line ##. |
 | WPE_SSH_KEY_PRIVATE | The private SSH key you've generated on your machine. Its public key counterpart should be added to WPE. [Read this for further instructions](https://wpengine.com/support/git/#Generate_SSH_Key). Should start with `-----BEGIN RSA PRIVATE KEY-----` and end with `-----END RSA PRIVATE KEY-----`. See line ##.
 
