@@ -34,7 +34,6 @@
     # done
   # chmod +x ~/private/{KINSTA_SITE_NAME}.git/hooks/post-receive
 
-
 name: Kinsta Deploy
 
 on:
@@ -122,7 +121,6 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.KINSTA_SSH_KEY_PRIVATE }}
           SSH_KNOWN_HOSTS: ${{ secrets.KINSTA_PRODUCTION_SSH_KNOWN_HOSTS }}
           
-
       - name: Deploy - Git Config - Staging?
         if: contains(github.ref, 'staging')
         run: git remote add kinsta ssh://${KINSTA_SITE_NAME}@${KINSTA_SITE_IP}:${KINSTA_STAGING_PORT}/www/${KINSTA_SITE_FOLDER}/private/bafflerdev.git
@@ -141,7 +139,6 @@ jobs:
           KINSTA_SITE_FOLDER: ${{ secrets.KINSTA_SITE_FOLDER }}
           KINSTA_PRODUCTION_PORT: ${{ secrets.KINSTA_PRODUCTION_PORT }}
           
-
       - name: Deploy - Git Config
         run: |
            git config --global user.email "actions@github.com"
