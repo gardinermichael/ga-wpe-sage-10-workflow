@@ -1,13 +1,38 @@
 # Manually triggered workflow except when pushed to Staging
 
+# Variables:
+  # KINSTA_SITE_NAME
+  # KINSTA_SITE_IP
+  # KINSTA_SITE_FOLDER
+  # KINSTA_PRODUCTION_PORT
+  # KINSTA_STAGING_PORT
+  # KINSTA_SSH_KEY_PRIVATE
+  # KINSTA_STAGING_SSH_KNOWN_HOSTS
+  # KINSTA_PRODUCTION_SSH_KNOWN_HOSTS
 
-# KINSTA_SITE_NAME
-# KINSTA_SITE_IP
-# KINSTA_SITE_FOLDER
-# KINSTA_PRODUCTION_PORT
-# KINSTA_STAGING_PORT
-# KINSTA_STAGING_SSH_KNOWN_HOSTS
-# KINSTA_PRODUCTION_SSH_KNOWN_HOSTS
+
+# Server Set Up (https://anchor.host/automatic-git-deploy-with-kinsta-via-ssh/)
+  # git init --bare ~/private/{KINSTA_SITE_NAME}.git
+  # cd ~/public; git init 
+  # cd ~/private/{KINSTA_SITE_FOLDER}.git/hooks/; vi post-receive
+    # #!/bin/bash
+    # TARGET="/www/{KINSTA_SITE_FOLDER}/public"
+    # GIT_DIR="/www/{KINSTA_SITE_FOLDER}/private/{KINSTA_SITE_NAME}.git"
+    # BRANCH="master"
+
+    # while read oldrev newrev ref
+    # do
+    #         # only checking out the master (or whatever branch you would like to deploy)
+    #         if [[ $ref = refs/heads/$BRANCH ]];
+    #         then
+    #                 echo "Ref $ref received. Deploying ${BRANCH} branch to production..."
+    #                 git --work-tree=$TARGET --git-dir=$GIT_DIR checkout -f
+    #         else
+    #                 echo "Ref $ref received. Doing nothing: only the ${BRANCH} branch may be deployed on this server."
+    #         fi
+    # done
+  # chmod +x ~/private/{site-name}.git/hooks/post-receive
+
 
 name: Kinsta Deploy
 
