@@ -158,6 +158,5 @@ jobs:
           git rm -r -q --cached --ignore-unmatch --force .github .gitignores composer.* gulpfile.babel.js package.json webpack.config.js yarn.lock .babelrc .editorconfig .eslintignore .eslintrc.json .stylelintrc tests
           git add .
           git status
-          ls -la
           git commit -m "Deployment commit ${GITHUB_REF##*/}-${{ github.run_id }}-${{ github.run_number }}"
           git push -f kinsta ${GITHUB_REF##*/}-${{ github.run_id }}-${{ github.run_number }}:master
