@@ -1,6 +1,6 @@
 # Manually triggered workflow except when pushed to Staging
 
-# Variables:
+# Variables
   # KINSTA_SITE_NAME
   # KINSTA_SITE_IP
   # KINSTA_SITE_FOLDER
