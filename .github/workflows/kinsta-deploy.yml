@@ -9,6 +9,8 @@
   # KINSTA_SSH_KEY_PRIVATE
   # KINSTA_STAGING_SSH_KNOWN_HOSTS
   # KINSTA_PRODUCTION_SSH_KNOWN_HOSTS
+  # PROJECT_TYPE
+  # PROJECT_NAME
 
 
 # Server Set Up (https://anchor.host/automatic-git-deploy-with-kinsta-via-ssh/)
