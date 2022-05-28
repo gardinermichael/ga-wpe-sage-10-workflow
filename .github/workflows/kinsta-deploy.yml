@@ -31,7 +31,7 @@
     #                 echo "Ref $ref received. Doing nothing: only the ${BRANCH} branch may be deployed on this server."
     #         fi
     # done
-  # chmod +x ~/private/{site-name}.git/hooks/post-receive
+  # chmod +x ~/private/{KINSTA_SITE_NAME}.git/hooks/post-receive
 
 
 name: Kinsta Deploy
