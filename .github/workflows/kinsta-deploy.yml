@@ -12,7 +12,6 @@
   # PROJECT_TYPE
   # PROJECT_NAME
 
-
 # Server Set Up (https://anchor.host/automatic-git-deploy-with-kinsta-via-ssh/)
   # git init --bare ~/private/{KINSTA_SITE_NAME}.git
   # cd ~/public; git init 
