@@ -14,7 +14,7 @@
 # Server Set Up (https://anchor.host/automatic-git-deploy-with-kinsta-via-ssh/)
   # git init --bare ~/private/{KINSTA_SITE_NAME}.git
   # cd ~/public; git init 
-  # cd ~/private/{KINSTA_SITE_FOLDER}.git/hooks/; vi post-receive
+  # cd ~/private/{KINSTA_SITE_NAME}.git/hooks/; vi post-receive
     # #!/bin/bash
     # TARGET="/www/{KINSTA_SITE_FOLDER}/public"
     # GIT_DIR="/www/{KINSTA_SITE_FOLDER}/private/{KINSTA_SITE_NAME}.git"
