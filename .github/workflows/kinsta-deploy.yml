@@ -72,6 +72,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+      
       - name: Cache - Get Composer Cache Directory Path
         id: get-composer-cache-dir
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -84,10 +85,12 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
+      
       - name: Build - Install Yarn Dependecies
         run: |
           yarn --prefer-offline
           yarn build:production
+      
       - name: Build - Install Composer Dependencies
         run: composer install --no-ansi --no-dev --no-interaction --optimize-autoloader --no-progress
 
@@ -144,9 +147,11 @@ jobs:
            git config --global user.email "actions@github.com"
            git config --global user.name "Github Action Deployment"
            git fetch kinsta
+      
       - name: Deploy - Git Ignore
         run: |
            rm .gitignore; mv .gitignores/__production .gitignore
+      
       - name: Deploy - Git Push
         run: |
           git checkout -b ${GITHUB_REF##*/}-${{ github.run_id }}-${{ github.run_number }}
