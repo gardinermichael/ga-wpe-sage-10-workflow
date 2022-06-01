@@ -1,20 +1,24 @@
 # Manually triggered workflow
 
-name: Deploy workflow
+name: Production/Staging Deploy
 
 on:
+  push:
+    branches:
+      - staging
+      - '!master'
+      - '!main'
   workflow_dispatch:
 
 jobs:
   Build-and-Deploy:
     runs-on: ubuntu-latest
-
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
         with:
           fetch-depth: '0'
-          
           
       - name: Cache - Get Yarn Cache Directory Path
         id: yarn-cache-dir-path
@@ -57,7 +61,6 @@ jobs:
           PROJECT_TYPE: ${{secrets.PROJECT_TYPE}}
           PROJECT_NAME: ${{secrets.PROJECT_NAME}}
 
-
       - name: Deploy - Create SSH key
         run: |
           mkdir -p ~/.ssh/
@@ -77,14 +80,12 @@ jobs:
         env:
           WPE_INSTALL_PRODUCTION: ${{ secrets.WPE_INSTALL_PRODUCTION }}
 
-      - name: Deploy - Git Push # unlink .gitignore; ln -s .gitignores/__production .gitignore (Place on line 84)
+      - name: Deploy - Git Push # unlink .gitignore; ln -s .gitignores/__production .gitignore
         run: |
           git checkout -b ${GITHUB_REF##*/}-${{ github.run_id }}-${{ github.run_number }}
-          
           git rm -r -q --cached --ignore-unmatch --force .circleci .github .gitignores composer.* gulpfile.babel.js package.json webpack.config.js yarn.lock .babelrc .editorconfig .eslintignore .eslintrc.json .stylelintrc codeception* tests
           git add .
           git status
-          ls -la
           git commit -m "Deployment commit"
           git push wpe  ${GITHUB_REF##*/}-${{ github.run_id }}-${{ github.run_number }}
           git push wpe :${GITHUB_REF##*/}-${{ github.run_id }}-${{ github.run_number }} 
