@@ -1,5 +1,14 @@
 # Manually triggered workflow except when pushed to Staging
 
+# Variables
+  # PROJECT_TYPE
+  # PROJECT_NAME
+  # WPE_SSH_KEY_PRIVATE
+  # WPE_SSH_KNOWN_HOSTS
+  # WPE_INSTALL_STAGING
+  # WPE_INSTALL_PRODUCTION
+
+
 name: Production/Staging Deploy
 
 on:
@@ -55,7 +64,7 @@ jobs:
           yarn --prefer-offline
           yarn build:production
      
-     - name: Build - Install Composer Dependencies
+      - name: Build - Install Composer Dependencies
         run: composer install --no-ansi --no-dev --no-interaction --optimize-autoloader --no-progress
 
       - name: Build - Move files Into Project Folder
