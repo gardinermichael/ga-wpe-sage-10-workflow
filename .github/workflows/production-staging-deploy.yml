@@ -8,7 +8,6 @@
   # WPE_INSTALL_STAGING
   # WPE_INSTALL_PRODUCTION
 
-
 name: Production/Staging Deploy
 
 on:
