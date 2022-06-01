@@ -1,6 +1,6 @@
 # Manually triggered workflow
 
-name: Deploy workflow
+name: Manual Deploy Workflow
 
 on:
   workflow_dispatch:
