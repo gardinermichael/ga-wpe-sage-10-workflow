@@ -74,6 +74,10 @@ jobs:
            git fetch wpe
         env:
           WPE_INSTALL_PRODUCTION: ${{ secrets.WPE_INSTALL_PRODUCTION }}
+          
+      - name: Deploy - Git Ignore
+        run: |
+           rm .gitignore; mv .gitignores/__production .gitignore
 
       - name: Deploy - Git Push # unlink .gitignore; ln -s .gitignores/__production .gitignore (Place on line 84)
         run: |
