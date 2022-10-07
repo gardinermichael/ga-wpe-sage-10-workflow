@@ -1,17 +1,5 @@
 # Manually triggered workflow except when pushed to Staging
 
-# Variables
-  # KINSTA_SITE_NAME
-  # KINSTA_SITE_IP
-  # KINSTA_SITE_FOLDER
-  # KINSTA_PRODUCTION_PORT
-  # KINSTA_STAGING_PORT
-  # KINSTA_SSH_KEY_PRIVATE
-  # KINSTA_STAGING_SSH_KNOWN_HOSTS
-  # KINSTA_PRODUCTION_SSH_KNOWN_HOSTS
-  # PROJECT_TYPE
-  # PROJECT_NAME
-
 # Server Set Up (https://anchor.host/automatic-git-deploy-with-kinsta-via-ssh/)
   # git init --bare ~/private/{KINSTA_SITE_NAME}.git
   # cd ~/public; git init 
@@ -33,6 +21,15 @@
     #         fi
     # done
   # chmod +x ~/private/{KINSTA_SITE_NAME}.git/hooks/post-receive
+
+# Variables
+  # KINSTA_SITE_NAME
+  # KINSTA_SITE_IP
+  # KINSTA_SITE_FOLDER
+  # KINSTA_PRODUCTION_PORT
+  # KINSTA_STAGING_PORT
+  # KINSTA_STAGING_SSH_KNOWN_HOSTS
+  # KINSTA_PRODUCTION_SSH_KNOWN_HOSTS
 
 name: Kinsta Deploy
 
@@ -72,7 +69,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      
       - name: Cache - Get Composer Cache Directory Path
         id: get-composer-cache-dir
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -85,12 +81,10 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
-      
       - name: Build - Install Yarn Dependecies
         run: |
           yarn --prefer-offline
           yarn build:production
-      
       - name: Build - Install Composer Dependencies
         run: composer install --no-ansi --no-dev --no-interaction --optimize-autoloader --no-progress
 
@@ -101,32 +95,26 @@ jobs:
         env:
           PROJECT_TYPE: ${{secrets.PROJECT_TYPE}}
           PROJECT_NAME: ${{secrets.PROJECT_NAME}}
-
+          
       - name: Deploy - Create SSH key - Staging?
         if: contains(github.ref, 'staging')
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          sudo chmod 600 ~/.ssh/id_rsa
-          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.KINSTA_SSH_KEY_PRIVATE }}
-          SSH_KNOWN_HOSTS: ${{ secrets.KINSTA_STAGING_SSH_KNOWN_HOSTS }}
+        uses: kielabokkie/ssh-key-and-known-hosts-action@v1
+        with:
+          ssh-private-key: ${{ secrets.KINSTA_SSH_KEY_PRIVATE }}
+          ssh-host: ${{ secrets.KINSTA_SITE_IP }}
+          ssh-port: ${{ secrets.KINSTA_STAGING_PORT }}
 
       - name: Deploy - Create SSH key - Production?
         if: contains(github.ref, 'master') || contains(github.ref, 'main')
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          sudo chmod 600 ~/.ssh/id_rsa
-          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.KINSTA_SSH_KEY_PRIVATE }}
-          SSH_KNOWN_HOSTS: ${{ secrets.KINSTA_PRODUCTION_SSH_KNOWN_HOSTS }}
-          
+        uses: kielabokkie/ssh-key-and-known-hosts-action@v1
+        with:
+          ssh-private-key: ${{ secrets.KINSTA_SSH_KEY_PRIVATE }}
+          ssh-host: ${{ secrets.KINSTA_SITE_IP }}
+          ssh-port: ${{ secrets.KINSTA_PRODUCTION_PORT }}          
+
       - name: Deploy - Git Config - Staging?
         if: contains(github.ref, 'staging')
-        run: git remote add kinsta ssh://${KINSTA_SITE_NAME}@${KINSTA_SITE_IP}:${KINSTA_STAGING_PORT}/www/${KINSTA_SITE_FOLDER}/private/bafflerdev.git
+        run: git remote add kinsta ssh://${KINSTA_SITE_NAME}@${KINSTA_SITE_IP}:${KINSTA_STAGING_PORT}/www/${KINSTA_SITE_FOLDER}/private/${KINSTA_SITE_NAME}.git
         env:
           KINSTA_SITE_NAME: ${{ secrets.KINSTA_SITE_NAME }}
           KINSTA_SITE_IP: ${{ secrets.KINSTA_SITE_IP }}
@@ -135,28 +123,28 @@ jobs:
 
       - name: Deploy - Git Config - Production?
         if: contains(github.ref, 'master') || contains(github.ref, 'main')
-        run: git remote add kinsta ssh://${KINSTA_SITE_NAME}@${KINSTA_SITE_IP}:${KINSTA_PRODUCTION_PORT}/www/${KINSTA_SITE_FOLDER}/private/bafflerdev.git
+        run: git remote add kinsta ssh://${KINSTA_SITE_NAME}@${KINSTA_SITE_IP}:${KINSTA_PRODUCTION_PORT}/www/${KINSTA_SITE_FOLDER}/private/${KINSTA_SITE_NAME}.git
         env:
           KINSTA_SITE_NAME: ${{ secrets.KINSTA_SITE_NAME }}
           KINSTA_SITE_IP: ${{ secrets.KINSTA_SITE_IP }}
           KINSTA_SITE_FOLDER: ${{ secrets.KINSTA_SITE_FOLDER }}
           KINSTA_PRODUCTION_PORT: ${{ secrets.KINSTA_PRODUCTION_PORT }}
           
+
       - name: Deploy - Git Config
         run: |
            git config --global user.email "actions@github.com"
            git config --global user.name "Github Action Deployment"
            git fetch kinsta
-      
       - name: Deploy - Git Ignore
         run: |
            rm .gitignore; mv .gitignores/__production .gitignore
-      
       - name: Deploy - Git Push
         run: |
           git checkout -b ${GITHUB_REF##*/}-${{ github.run_id }}-${{ github.run_number }}
           git rm -r -q --cached --ignore-unmatch --force .github .gitignores composer.* gulpfile.babel.js package.json webpack.config.js yarn.lock .babelrc .editorconfig .eslintignore .eslintrc.json .stylelintrc tests
           git add .
           git status
+          ls -la
           git commit -m "Deployment commit ${GITHUB_REF##*/}-${{ github.run_id }}-${{ github.run_number }}"
           git push -f kinsta ${GITHUB_REF##*/}-${{ github.run_id }}-${{ github.run_number }}:master
